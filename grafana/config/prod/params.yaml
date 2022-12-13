@@ -1,0 +1,6 @@
+slack:
+  secure_settings:
+    url: https://hooks.slack.com/services/xxxxxxxxxx
+alert:
+  name_prefix: "[PROD] "
+datasource: Kubernetes

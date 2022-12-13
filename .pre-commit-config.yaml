@@ -1,0 +1,44 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: detect-private-key
+      - id: mixed-line-ending
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.1.0
+    hooks:
+      - id: codespell
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.8.0.1
+    hooks:
+      - id: shellcheck
+  - repo: https://github.com/markdownlint/markdownlint
+    rev: v0.11.0
+    hooks:
+      - id: markdownlint
+  - repo: local
+    hooks:
+      - id: check-dashboards-json-2-yaml-consistency
+        name: check-dashboards-json-2-yaml-consistency
+        description: Check that Dashboards json files have consistent yaml files
+        entry: grafana/check-dashboards-consistency.sh
+        language: script
+        files: ".*/grafana/dashboards/.*"
+      - id: check-dashboards
+        name: check-dashboards
+        description: Check Dashboards
+        entry: grafana/check-dashboards.sh
+        language: script
+        files: ".*/grafana/dashboards/.*.yaml"

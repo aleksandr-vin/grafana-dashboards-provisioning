@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./docker-compose/etc/prometheus:/etc/prometheus
+    ports:
+      - 9090:9090
+    command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml --log.level=debug
+  grafana:
+    image: grafana/grafana:8.5.5
+    volumes:
+      - ./docker-compose/etc/grafana:/etc/grafana
+      - ./docker-compose/var/lib/grafana/dashboards:/var/lib/grafana/dashboards
+    ports:
+      - 3000:3000
+    depends_on:
+      - prometheus
+  webhook:
+    image: "node:11-slim"
+    volumes:
+      - ./docker-compose/webhook:/app
+    ports:
+      - 13000:13000
+    command: node /app/app.js

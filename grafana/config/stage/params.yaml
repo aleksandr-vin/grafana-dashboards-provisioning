@@ -1,0 +1,6 @@
+slack:
+  secure_settings:
+    url:
+alert:
+  name_prefix: "[localhost] "
+datasource: Kubernetes

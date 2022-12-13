@@ -1,0 +1,15 @@
+apiVersion: 1
+datasources:
+  - name: BROKEN-BY-DEFAULT
+    # This datasource is needed broken to catch all dashboards/panels that are left with default datasource
+    type: prometheus
+    url: http://localhost:80
+    isDefault: true
+    access: proxy
+    editable: false
+  - name: Kubernetes
+    type: prometheus
+    url: http://prometheus:9090
+    isDefault: false
+    access: proxy
+    editable: true

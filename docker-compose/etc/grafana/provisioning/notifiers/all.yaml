@@ -1,0 +1,30 @@
+# See https://grafana.com/docs/grafana/latest/administration/provisioning/
+notifiers:
+  - name: docker-compose-webhook
+    # Sample notification channel, that runs in docker-compose as a HTTP server logging all requests
+    uid: docker-compose-webhook
+    type: webhook
+    org_id: 1
+    is_default: true
+    send_reminder: true
+    frequency: 1h
+    disable_resolve_message: false
+    settings:
+      url: http://webhook:13000/docker-compose-webhook # See docker-compose.yml
+      httpMethod: POST
+  - name: my-slack-alerts
+    type: slack
+    uid: my-slack-alerts
+    org_id: 1 # or org_name: Main Org.
+    is_default: false
+    send_reminder: true
+    frequency: 5m
+    disable_resolve_message: false
+    # See `Supported Settings` section for settings supported for each alert notification type.
+    settings:
+      autoResolve: true
+      uploadImage: true
+    # Secure settings that will be encrypted in the database (supported since Grafana v7.2).
+    # See `Supported Settings` section for secure settings supported for each notifier.
+    secure_settings:
+      url: https://hooks.slack.com/services/XXXXXXXX/YYYYYYYYY/ZZZZZZZZZ
